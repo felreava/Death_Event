@@ -14,12 +14,13 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.meta.FireworkMeta;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 
-public class DeathListener extends JavaPlugin implements Listener{
+public class DeathListener implements Listener{
 
 	public DeathListener(Main ma, PluginManager pm)
 	{
@@ -36,12 +37,10 @@ public class DeathListener extends JavaPlugin implements Listener{
 			 
 			
 			 p.sendMessage(ChatColor.RED + "Test");
-		    	getServer().getScheduler().scheduleSyncRepeatingTask(this, new FireworkDelayedBurster(p), 45L, 45L);    	
+		    	Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask((Plugin) this, new FireworkDelayedBurster(p), 45L, 45L);    	
 		    	
-		    	Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this, new Runnable(){
-		               public void run()
-		               {
-		                   
+		    	Bukkit.getServer().getScheduler().scheduleSyncDelayedTask((Plugin) this, new Runnable(){
+		               public void run(){
 		                   Bukkit.getScheduler().cancelAllTasks();
 		               }
 		           }, 2400L);
